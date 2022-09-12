@@ -9,8 +9,8 @@ import { createConnection } from "./database/data-source";
 
 createConnection();
 
-import { router } from "./routes";
-import { AppError } from "./errors/AppError";
+import { router } from "./shared/infra/http/routes";
+import { AppError } from "./shared/errors/AppError";
 
 const app = express();
 
