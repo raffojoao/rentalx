@@ -2,16 +2,19 @@ import "reflect-metadata";
 import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
 import swaggerUi from "swagger-ui-express";
-
 import "../../container";
 import swaggerFile from "../../../swagger.json";
 import { createConnection } from "../typeorm/data-source";
-
-createConnection();
-
 import { router } from "./routes";
 import { AppError } from "../../errors/AppError";
 
+createConnection()
+  .then(() => {
+    console.log("Data Source has been initialized\n");
+  })
+  .catch((e) => {
+    console.log("Error initializing Data Source", e);
+  });
 const app = express();
 
 app.use(express.json());

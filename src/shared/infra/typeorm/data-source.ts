@@ -10,13 +10,19 @@ const AppDataSource = new DataSource({
   database: "rentx",
   synchronize: false,
   logging: false,
-  entities: ["./src/modules/**/entities/*.ts"],
-  migrations: ["./src/database/migrations/*.ts"],
+  entities: ["./src/modules/**/infra/typeorm/entities/*.ts"],
+  migrations: ["./src/shared/infra/typeorm/migrations/*.ts"],
   subscribers: [],
 });
 
-export function createConnection(host = "database"): Promise<DataSource> {
+export async function createConnection(host = "database"): Promise<DataSource> {
   return AppDataSource.setOptions({ host }).initialize();
+}
+
+export async function runQuery(query: string): Promise<void> {
+  await AppDataSource.transaction(async (transactionalEntityManager) => {
+    await transactionalEntityManager.query(query);
+  });
 }
 
 export default AppDataSource;
