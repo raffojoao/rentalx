@@ -11,6 +11,11 @@ class CarsRepository implements ICarsRepository {
     this.repository = AppDataSource.getRepository(Car);
   }
 
+  async findById(id: string): Promise<Car> {
+    const car = await this.repository.findOne({ where: { id: id } });
+    return car;
+  }
+
   async create({
     brand,
     category_id,
@@ -19,6 +24,8 @@ class CarsRepository implements ICarsRepository {
     fine_amount,
     name,
     license_plate,
+    specifications,
+    id,
   }): Promise<Car> {
     const car = this.repository.create({
       brand,
@@ -28,6 +35,8 @@ class CarsRepository implements ICarsRepository {
       fine_amount,
       name,
       license_plate,
+      specifications,
+      id,
     });
 
     await this.repository.save(car);
@@ -47,9 +56,9 @@ class CarsRepository implements ICarsRepository {
     category_id?: string,
     name?: string
   ): Promise<Car[]> {
-    const carsQuery = await this.repository
+    const carsQuery = this.repository
       .createQueryBuilder("c")
-      .where("available = :available", { available: true });
+      .where("c.available = :available", { available: true });
 
     if (brand) {
       carsQuery.andWhere("c.brand = :brand", { brand });
@@ -64,6 +73,7 @@ class CarsRepository implements ICarsRepository {
     }
 
     const cars = await carsQuery.getMany();
+
     return cars;
   }
 }
