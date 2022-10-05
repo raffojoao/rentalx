@@ -9,6 +9,7 @@
     "create-migration": "ts-node-dev ./node_modules/typeorm/cli migration:create",
     "reset": "docker stop rentx && docker rm rentx && docker-compose build && docker-compose up",
     "reset-migrations": "yarn typeorm migration:revert && yarn typeorm migration:run",
+    "run-migrations": "yarn typeorm migration:run",
     "test": "jest",
     "seed:admin": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seed/admin.ts"
   },

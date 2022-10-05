@@ -1,0 +1,3 @@
+interface IRentalsRepository {}
+
+export { IRentalsRepository };
