@@ -8,7 +8,9 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToOne,
   PrimaryColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
@@ -29,22 +31,22 @@ class Rental {
   @Column()
   total: number;
 
-  @Column()
+  @CreateDateColumn()
   created_at: Date;
 
-  @Column()
+  @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => Car)
-  @JoinColumn({ name: "car_id" })
-  car: Car;
+  // @OneToOne(() => Car)
+  // @JoinColumn({ name: "car_id" })
+  // car: Car;
 
   @Column()
   car_id: string;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: "user_id" })
-  user: User;
+  // @OneToOne(() => User)
+  // @JoinColumn({ name: "user_id" })
+  // user: User;
 
   @Column()
   user_id: string;

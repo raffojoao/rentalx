@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { AppError } from "../../../../shared/errors/AppError";
 import { ISpecificationsRepository } from "@modules/cars/repositories/ISpecificationsRepository";
