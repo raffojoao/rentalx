@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 import { hash } from "bcryptjs";
 import { DataSource } from "typeorm";
 
-describe("Create Category Controller", () => {
+describe("List Categories", () => {
   beforeAll(async () => {
     const id = uuidv4();
     const password = await hash("admin", 8);
@@ -27,26 +27,7 @@ describe("Create Category Controller", () => {
     await close();
   });
 
-  it("should be able to create a new category", async () => {
-    const responseToken = await request(app).post("/sessions").send({
-      email: "admin@rentx.com",
-      password: "admin",
-    });
-
-    const { token } = responseToken.body;
-
-    const response = await request(app)
-      .post("/categories")
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
-        name: "Category Supertest",
-        description: "Category Syupertest",
-      });
-
-    expect(response.status).toBe(201);
-  });
-
-  it("should not be able to create two categories with the same name", async () => {
+  it("should be able to list all categories", async () => {
     const responseToken = await request(app).post("/sessions").send({
       email: "admin@rentx.com",
       password: "admin",
@@ -56,20 +37,15 @@ describe("Create Category Controller", () => {
 
     await request(app)
       .post("/categories")
-      .set({ Authorization: `Bearer ${token}` })
       .send({
         name: "Category Supertest",
         description: "Category Supertest",
-      });
+      })
+      .set({ Authorization: `Bearer ${token}` });
 
-    const response = await request(app)
-      .post("/categories")
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
-        name: "Category Supertest",
-        description: "Another Category Supertest",
-      });
+    const response = await request(app).get("/categories");
 
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(1);
   });
 });
