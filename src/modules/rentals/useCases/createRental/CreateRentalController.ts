@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { Rental } from "../infra/typeorm/entities/Rental";
+import { Rental } from "../../infra/typeorm/entities/Rental";
 import { CreateRentalUseCase } from "./CreateRentalUseCase";
 
 class CreateRentalController {
