@@ -37,16 +37,16 @@ class Rental {
   @UpdateDateColumn()
   updated_at: Date;
 
-  // @OneToOne(() => Car)
-  // @JoinColumn({ name: "car_id" })
-  // car: Car;
+  @ManyToOne(() => Car)
+  @JoinColumn({ name: "car_id" })
+  car: Car;
 
   @Column()
   car_id: string;
 
-  // @OneToOne(() => User)
-  // @JoinColumn({ name: "user_id" })
-  // user: User;
+  @ManyToOne(() => User)
+  @JoinColumn({ name: "user_id" })
+  user: User;
 
   @Column()
   user_id: string;

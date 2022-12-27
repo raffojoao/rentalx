@@ -10,7 +10,7 @@
     "reset": "docker stop rentx && docker rm rentx && docker-compose build && docker-compose up",
     "reset-migrations": "yarn typeorm migration:revert && yarn typeorm migration:run",
     "run-migrations": "yarn typeorm migration:run",
-    "test": "NODE_ENV=test jest",
+    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles",
     "seed:admin": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seed/admin.ts",
     "clean-project": "rm -rf ./node_modules && yarn install"
   },

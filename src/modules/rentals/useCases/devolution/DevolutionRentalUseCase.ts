@@ -32,10 +32,7 @@ class DevolutionRentalUseCase {
 
     const dateNow = this.dateProvider.dateNow();
 
-    let daily = this.dateProvider.compareInDays(
-      rental.start_date,
-      this.dateProvider.dateNow()
-    );
+    let daily = this.dateProvider.compareInDays(rental.start_date, dateNow);
 
     if (daily <= 0) {
       daily = minimum_daily;
@@ -53,7 +50,7 @@ class DevolutionRentalUseCase {
     }
 
     total += daily * car.daily_rate;
-    rental.end_date = this.dateProvider.dateNow();
+    rental.end_date = dateNow;
     rental.total = total;
 
     await this.rentalsRepository.create(rental);
